@@ -11,9 +11,7 @@ https://{string}.execute-api.{region}.amazonaws.com/{stage}/...
 If the application is exposed through AWS API Gateway, HTTP Response headers might contain header names such as: `x-amz-apigw-id`, `x-amzn-requestid`, `x-amzn-trace-id`
 
 #### Option 3 ####
-If the developer left unhandled exceptions and verbose error messages, these messages might contain sensitive information, which points to the fact that this is an AWS Lambda serverless application. Try to invoke the API of the convert form, using an HTTP get request, and without the `document_url` parameter in the Query string:
-
-https://eqfh35ixqj.execute-api.us-east-1.amazonaws.com/Prod/api/convert
+If the developer left unhandled exceptions and verbose error messages, these messages might contain sensitive information, which points to the fact that this is an AWS Lambda serverless application. Try to invoke the API of the convert form, using an HTTP get request, and without the `document_url` parameter in the Query string: ```https://eqfh35ixqj.execute-api.us-east-1.amazonaws.com/Prod/api/convert```
 
 This will generate the following stack trace:
 ```
@@ -52,10 +50,10 @@ Let's grab the data from the environment variables by running the `env` command 
 {Partial Values}
 ```
 AWS_SESSION_TOKEN=XXXXXXXXXXXXX
-TABLE_NAME=aws-serverless-repository-serverless-goat-Table-1VK68UY2F6FLM
+TABLE_NAME={dynamo_table_name}
 AWS_SECRET_ACCESS_KEY=XXXXXXXXXXXXX
-BUCKET_NAME=aws-serverless-repository-serverless-goat-bucket-138sx06nsyqvs
+BUCKET_NAME={bucket_name}
 AWS_ACCESS_KEY_ID=XXXXXXXXXXXXX
 ```
 
-## To be continued... ##
+To be continued...

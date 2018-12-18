@@ -161,6 +161,33 @@ Results:
     }
 }
 ```
+Version 1.4.3 of this package is very old. Now it's time to launch your favorite OSS dependency checker and see what you can dig. Anyway, from here on, you are 'off script', we didn't plan for you to actually exploit the vulnerable dependency at this point.
+
+### Lesson 7: Denial of Service - Really?! On Serverless? ###
+Yes... even though serverless platforms automatically scale for you, by invoking concurrent function executions, there are limits. You can read more about the limits in the official AWS [documentation](https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html). You might have noticed, that you have a concurrency limit for the entire AWS account (the default is 1,000), but if you want to make sure that a single function doesn't end up depleting your entire account's concurrency limit, you should be using 'reserved capacity'. The developer of ServerlessGoat was smart enough to set each function with its own reserved capacity of 5 concurrency execution. We are going to abuse that. There are many ways to invoke the function 5 times, but if you want all 5 executions to stay alive for enough time, calling them recursively might help - here's the trick:
+
+`https://i92uw6vw73.execute-api.us-east-1.amazonaws.com/Prod/api/convert?document_url=https%3A%2F%2Fi92uw6vw73.execute-api.us-east-1.amazonaws.com%2FProd%2Fapi%2Fconvert%3Fdocument_url...`
+
+Note: This is going to be easier with a script...
+* Craft a URL, starting with the actual API URL
+* Set the value of the `document_url` to invoke itself, but URL-encode the URL (it's a parameter value now)
+* Copy the entire thing, URL-encode all of it, and paste it as the parameter value, to yet another regular API URL
+* Rinse, repeat x5 times. You should end up with a long URL like the one above
+
+Now, let's get AWS Lambda busy with this, by invoking this at least a 100 times. For example:
+```
+for i in {1..100}; do
+ echo $i
+ curl -L https://{paste_url_here}
+done
+
+Let it run, and in a different terminal window, run another loop, with a simple API call. If you're lucky, from time to time you will notice a server(less) error reply. Yup, other users are not getting service.
+
+
+
+
+
+
 
 
 

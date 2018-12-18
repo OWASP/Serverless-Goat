@@ -61,9 +61,11 @@ First, by grabbing the 3 IAM tokens - `AWS_SESSION_TOKEN`, `AWS_SECRET_ACCESS_KE
 
 Now, given that we have the tokens generated to the function by AWS STS, we can use the tokens to invoke AWS CLI commands from our local machine. In order to do that, set these environment variables locally by running in a shell terminal:
 
-`export AWS_SECRET_ACCESS_KEY = ...`
-`export AWS_ACCESS_KEY_ID = ...`
-`export AWS_SESSION_TOKEN = ...`
+```
+export AWS_SECRET_ACCESS_KEY = ...
+export AWS_ACCESS_KEY_ID = ...
+export AWS_SESSION_TOKEN = ...
+```
 
 Next, you can verify that you are indeed using the function's role, by running: `aws sts get-caller-identity`.
 

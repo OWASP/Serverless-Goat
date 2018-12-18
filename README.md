@@ -26,10 +26,12 @@ Steps for deployment:
 5. Wait until you see the message 'Your application has been deployed'
 6. Click on 'View CloudFormation Stack'
 7. Under 'Outputs' you will find the URL for the application (WebsiteURL)
-​
+
 ## Cheat-Sheet ##
+
+The full walkthrough of the lessons (under development) can be found in the LESSONS.md file
+
 The following security issues exist in the application:
-​
 * Event-data injection, leading to OS command injection (SAS-01)
   * Users can invoke the API with a `document_url` parameter value containing Linux OS commands. E.g. `; ls -LF`
 * Improper exception handling and verbose error messages (SAS-10), leading to sensitive information disclosure

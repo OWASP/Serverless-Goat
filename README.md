@@ -29,7 +29,7 @@ Steps for deployment:
 
 ## Cheat-Sheet ##
 
-The full walkthrough of the lessons (under development) can be found in the LESSONS.md file
+The full walkthrough of the lessons (under development) can be found in the [LESSONS.md](https://github.com/OWASP/Serverless-Goat/blob/master/LESSONS.md) file
 
 The following security issues exist in the application:
 * Event-data injection, leading to OS command injection (SAS-01)
@@ -51,7 +51,7 @@ The following security issues exist in the application:
     https://i92uw6vw73.execute-api.us-east-1.amazonaws.com/Prod/api/convert?document_url=https%3A%2F%2Fi92uw6vw73.execute-api.us-east-1.amazonaws.com%2FProd%2Fapi%2Fconvert%3Fdocument_url...
     ``` 
 * An undisclosed *critical* issue, as a bonus! 
-​
+
 ## Acknowledgements ##
 ServerlessGoat was initially created and contributed to OWASP by Yuri Shapira & Ory Segal, [PureSec](https://www.puresec.io/).
-​
+

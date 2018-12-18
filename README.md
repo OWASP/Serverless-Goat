@@ -53,5 +53,5 @@ The following security issues exist in the application:
 * An undisclosed *critical* issue, as a bonus! 
 ​
 ## Acknowledgements ##
-ServerlessGoat was initially created and contributed to OWASP by Yuri Shapira & Ory Segal, PureSec.
+ServerlessGoat was initially created and contributed to OWASP by Yuri Shapira & Ory Segal, [PureSec](https://www.puresec.io/).
 ​

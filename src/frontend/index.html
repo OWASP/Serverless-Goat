@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OWASP ServerlessGoat - Vulnerable Serverless Application</title>
+    <link href="https://fonts.googleapis.com/css?family=Dosis:200,400|Montserrat" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"
+          integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/base-min.css">
+    <style>
+        h1 {
+            font-family: 'Dosis', sans-serif;
+            font-size: 40px;
+            font-weight: 200;
+            color: #ff7d0a;
+        }
+
+        body, p, div {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .button-secondary {
+            background: rgb(66, 184, 221);
+            color: #ffffff;
+    </style>
+</head>
+<body style="padding-left: 50px;">
+<img src="https://www.owasp.org/resources/assets/owasplogo.png" style="height: 3em; float: left; padding-right: 20px;">
+<h1>OWASP ServerlessGoat</h1>
+<div class="pure-g">
+    <div class="pure-u-1-2">
+        <p>
+            OWASP ServerlessGoat is a deliberately insecure realistic AWS Lambda serverless application,
+            maintained by OWASP.
+        </p>
+    </div>
+</div>
+<br/><br/>
+<form class="pure-form" action="api/convert">
+    <legend>Enter a URL of a Word Doc (.doc) file to convert:</legend>
+    <input onFocus="this.value='';" pattern="https?://.+" class="pure-input-1-2 pure-input-rounded" id="docurl"
+           type="text" name="document_url" title="Document URL" value="https://www.puresec.io/hubfs/document.doc"/>
+    <input type="submit" class="button-secondary pure-button" value="Submit"/>
+</form>
+<br/><br/>
+Try to find as many issues as possible, from the following list:
+<ul>
+    <li>Function Event Data Injection</li>
+    <li>Broken Authentication</li>
+    <li>Insecure Serverless Deployment Configuration</li>
+    <li>Over-Privileged Function Permissions & Roles</li>
+    <li>Inadequate Function Monitoring and Logging</li>
+    <li>Insecure 3rd Party Dependencies</li>
+    <li>Insecure Application Secrets Storage</li>
+    <li>Denial of Service & Financial Resource Exhaustion</li>
+    <li>Serverless Function Execution Flow Manipulation</li>
+    <li>Improper Exception Handling and Verbose Error Messages</li>
+</ul>
+<br/>
+More information about the top risks: <a target="_blank" href="https://github.com/puresec/sas-top-10">Serverless
+    Security Top 10</a>
+</body>
+</html>

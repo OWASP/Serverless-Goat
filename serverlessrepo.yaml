@@ -1,0 +1,16 @@
+Author: OWASP
+Description: OWASP ServerlessGoat is a deliberately insecure realistic AWS Lambda serverless application, maintained by OWASP and initially created by PureSec.
+HomePageUrl: https://www.owasp.org/index.php/OWASP_Serverless_Goat
+Labels:
+- security
+- serverless
+- owasp
+- vulnerable
+Name: serverless-goat
+SemanticVersion: 1.0.0
+SourceCodeUrl: https://github.com/OWASP/Serverless-Goat
+SpdxLicenseId: AGPL-3.0-or-later
+public: true
+S3Bucket: puresec-app-repository
+AWSProfile: marketplace
+Region: us-east-1

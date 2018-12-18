@@ -1,0 +1,57 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+
+Globals:
+  Function:
+    Runtime: nodejs8.10
+    Handler: index.handler
+    MemorySize: 3008
+    Timeout: 10
+
+Resources:
+  FunctionFrontend:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/frontend/
+      ReservedConcurrentExecutions: 5
+      Events:
+        ApiConvert:
+          Type: Api
+          Properties:
+            Path: /
+            Method: get
+  FunctionConvert:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/api/convert/
+      ReservedConcurrentExecutions: 5
+      Environment:
+        Variables:
+          HOME: /var/task
+          TABLE_NAME: !Ref Table
+          BUCKET_NAME: !Ref Bucket
+          BUCKET_URL: !GetAtt Bucket.WebsiteURL
+      Events:
+        ApiConvert:
+          Type: Api
+          Properties:
+            Path: /api/convert
+            Method: get
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref Table
+        - S3FullAccessPolicy:
+            BucketName: !Ref Bucket
+  Table:
+     Type: AWS::Serverless::SimpleTable
+  Bucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        AccessControl: PublicRead
+        WebsiteConfiguration:
+          IndexDocument: index.html
+          ErrorDocument: index.html
+Outputs:
+    WebsiteURL:
+      Description: 'Website URL'
+      Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/${ServerlessRestApi.Stage}/'

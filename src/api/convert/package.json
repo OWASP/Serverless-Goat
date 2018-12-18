@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "dependencies": {
+    "node-uuid": "1.4.3"
+  }
+}

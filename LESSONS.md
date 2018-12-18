@@ -114,6 +114,10 @@ https://; node -e 'const AWS = require("aws-sdk"); (async () => {console.log(awa
 ...
 ...
 ```
+
+**Extra Credit** You can use the same approach, to access and tamper data inside the S3 bucket. Try it!
+
+
 ### Lesson 5: Abusing Insecure Cloud Configurations ###
 By now, we're sure you are well aware of the many publicly open S3 buckets out there. This happens when you deploy cloud resources without following security best-practices. The same thing exists in our application. We already know the name of the bucket used by the application - we got it in the BUCKET_NAME environment variable, and frankly, it wasn't that difficult to spot it in the redirect URL of the response to the convert operation:
 

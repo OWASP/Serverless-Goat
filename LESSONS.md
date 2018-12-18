@@ -175,12 +175,12 @@ Note: This is going to be easier with a script...
 * Rinse, repeat x5 times. You should end up with a long URL like the one above
 
 Now, let's get AWS Lambda busy with this, by invoking this at least a 100 times. For example:
-```
+```shell
 for i in {1..100}; do
  echo $i
  curl -L https://{paste_url_here}
 done
-
+```
 Let it run, and in a different terminal window, run another loop, with a simple API call. If you're lucky, from time to time you will notice a server(less) error reply. Yup, other users are not getting service.
 
 

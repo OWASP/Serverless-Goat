@@ -32,20 +32,20 @@ Steps for deployment:
 The following security issues exist in the application:
 ​
 * Event-data injection, leading to OS command injection (SAS-01)
- * Users can invoke the API with a `document_url` parameter value containing Linux OS commands. E.g. `; ls -LF`
+  * Users can invoke the API with a `document_url` parameter value containing Linux OS commands. E.g. `; ls -LF`
 * Improper exception handling and verbose error messages (SAS-10), leading to sensitive information disclosure
- * For example, invoking the API without the required parameter will return a verbose stack trace/exception
+  * For example, invoking the API without the required parameter will return a verbose stack trace/exception
 * Insecure Serverless Deployment Configuration (SAS-03)
- * Publicly open S3 bucket (its name can be discovered from the subdomain/prefix of the URL)
- * The parameter `document_url` is not defined as a 'required' parameter in API gateway and can be ommitted
+  * Publicly open S3 bucket (its name can be discovered from the subdomain/prefix of the URL)
+  * The parameter `document_url` is not defined as a 'required' parameter in API gateway and can be ommitted
 * Over-privileged function permissions & roles, leading to data leakage of information stored in a DynamoDB table (SAS-04)
- * The function has CRUD permissions on the Dynamo table, which can be abused for reading sensitive data, or manipulating data
- * The function has FullAccess policy on the S3 bucket, leading to data tampering and data leakage, etc.
+  * The function has CRUD permissions on the Dynamo table, which can be abused for reading sensitive data, or manipulating data
+  * The function has FullAccess policy on the S3 bucket, leading to data tampering and data leakage, etc.
 * Inadequate function monitoring and logging (SAS-05) - the application doesn't properly log application layer attacks and errors (can be demonstrated through CloudWatch/CloudTrail)
 * Insecure 3rd Party Dependencies (SAS-06) - can be detected by scanning the project with an OSS scanning tool
- * The vulnerable package is `node-uuid` 
+  * The vulnerable package is `node-uuid` 
 * Application layer Denial of Service (SAS-08), which can be easily demonstrated
- * An attacker may invoke the API recursively multiple times, essentially spawning enough instances to reach the function's reserved capacity limit (which is set to 5). For example:
+  * An attacker may invoke the API recursively multiple times, essentially spawning enough instances to reach the function's reserved capacity limit (which is set to 5). For example:
     ```
     https://i92uw6vw73.execute-api.us-east-1.amazonaws.com/Prod/api/convert?document_url=https%3A%2F%2Fi92uw6vw73.execute-api.us-east-1.amazonaws.com%2FProd%2Fapi%2Fconvert%3Fdocument_url...
     ``` 
@@ -53,6 +53,4 @@ The following security issues exist in the application:
 ​
 ## Acknowledgements ##
 ServerlessGoat was initially created and contributed to OWASP by Yuri Shapira & Ory Segal, PureSec.
-​
-​
 ​

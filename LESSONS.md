@@ -55,5 +55,26 @@ AWS_SECRET_ACCESS_KEY=XXXXXXXXXXXXX
 BUCKET_NAME={bucket_name}
 AWS_ACCESS_KEY_ID=XXXXXXXXXXXXX
 ```
+First, by grabbing the 3 IAM tokens - `AWS_SESSION_TOKEN`, `AWS_SECRET_ACCESS_KEY` and `AWS_ACCESS_KEY_ID`, we can now impersonate the function's assumed execution role. For those of you who aren't familiar with the AWS IAM security model, this is an extremely granular and powerful security permissions model. Here's an excerpt from the AWS documentation on IAM roles:
 
-To be continued...
+```An IAM role is similar to a user, in that it is an AWS identity with permission policies that determine what the identity can and cannot do in AWS. However, instead of being uniquely associated with one person, a role is intended to be assumable by anyone who needs it. Also, a role does not have standard long-term credentials (password or access keys) associated with it. Instead, if a user assumes a role, temporary security credentials are created dynamically and provided to the user. You can use roles to delegate access to users, applications, or services that don't normally have access to your AWS resources.```
+
+Now, given that we have the tokens generated to the function by AWS STS, we can use the tokens to invoke AWS CLI commands from our local machine. In order to do that, set these environment variables locally by running in a shell terminal:
+
+`export AWS_SECRET_ACCESS_KEY = ...`
+`export AWS_ACCESS_KEY_ID = ...`
+`export AWS_SESSION_TOKEN = ...`
+
+Next, you can verify that you are indeed using the function's role, by running: `aws sts get-caller-identity`.
+
+This should return the following:
+```
+{
+    "UserId": "xxxxxxxxx",
+    "Account": "xxxxxxxxxx",
+    "Arn": "arn:aws:sts::xxxxxxxxxxxx:assumed-role/aws-serverless-repository-serv-FunctionConvertRole-xxxxxxxx/aws-serverless-repository-serverle-FunctionConvert-xxxxxxxxxx"
+}
+```
+It's clear that we are now running under the assumed role of the function.
+
+To Be Continued...

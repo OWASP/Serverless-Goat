@@ -2,8 +2,8 @@
 ​
 Thank you for using OWASP ServerlessGoat!
 ​
-This serverless application demonstrates common serverless security flaws as described in the Serverless Security Top 10 Weaknesses guide [https://github.com/puresec/sas-top-10](https://github.com/puresec/sas-top-10).
-​
+This serverless application demonstrates common serverless security flaws as described in the Serverless Security Top 10 Weaknesses guide [https://github.com/puresec/sas-top-10](https://github.com/puresec/sas-top-10).  ​
+
 ServerlessGoat was created for the following educational purposes:
 * Teach developers & security practitioners about common serverless application layer risks and weaknesses 
 * Educate on how serverless application layer weaknesses can be exploited

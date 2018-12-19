@@ -6,12 +6,16 @@ This serverless application demonstrates common serverless security flaws as des
 ServerlessGoat was created for the following educational purposes:
 * Teach developers & security practitioners about common serverless application layer risks and weaknesses 
 * Educate on how serverless application layer weaknesses can be exploited
-* Teach developers & security practitioners about serverless security best-practices
+* Teach developers & security practitioners about serverless security best-practices  
 ​
-WARNING 1: This application contains vulnerabilities. Use it only for training purposes.  
-WARNING 2: This program is for educational purposes only. Do not attempt these techniques without authorization from application owners.
-​
+
 You can find more information about WebGoat at: [https://www.owasp.org/index.php/OWASP_Serverless_Goat](https://www.owasp.org/index.php/OWASP_Serverless_Goat)
+
+**​WARNING 1**: This application contains vulnerabilities. Use it only for training purposes.  
+**WARNING 2**: This program is for educational purposes only. Do not attempt these techniques without authorization from application owners.  ​
+
+**NOTE**: The application was developed in such way that should not put your AWS account at risk. The vulnerabilities that were introduced are contained within the boundaries of this specific application. Nevertheless, users are not encouraged to deploy the application in production environments.
+
 ​
 ## Deployment ##
 ServerlessGoat is a simple AWS Lambda application, which serves as a MS-Word .doc file to plain text converter service. It receives a URL to a .doc file as input, and will return the text inside the document back to the API caller.
@@ -26,12 +30,13 @@ Steps for deployment:
 5. Wait until you see the message 'Your application has been deployed'
 6. Click on 'View CloudFormation Stack'
 7. Under 'Outputs' you will find the URL for the application (WebsiteURL)
-
+​
 ## Cheat-Sheet ##
 
 The full walkthrough of the lessons (under development) can be found in the [LESSONS.md](https://github.com/OWASP/Serverless-Goat/blob/master/LESSONS.md) file
 
 The following security issues exist in the application:
+​
 * Event-data injection, leading to OS command injection (SAS-01)
   * Users can invoke the API with a `document_url` parameter value containing Linux OS commands. E.g. `; ls -LF`
 * Improper exception handling and verbose error messages (SAS-10), leading to sensitive information disclosure
@@ -54,4 +59,4 @@ The following security issues exist in the application:
 
 ## Acknowledgements ##
 ServerlessGoat was initially created and contributed to OWASP by Yuri Shapira & Ory Segal, [PureSec](https://www.puresec.io/).
-
+​

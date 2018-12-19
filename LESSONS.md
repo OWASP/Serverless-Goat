@@ -21,6 +21,16 @@ at exports.handler (/var/task/index.js:25:11)
 ```
 Looking at the stack trace, we see that the application is located in the /var/task directory, which is where AWS Lambda stores and executes your Lambda function. We also see the string `exports.handler`, which is a very common way to name serverless functions (i.e. the function name is `handler`, and it is defined inside `index.js`).
 
+#### Lesson Learned: Use API Gateway Request Validation ####
+Developers should never assume anything about the correctness of API invocations and the data being sent as input. Proper request validation should always be done as a first security measure. AWS API Gateway can perform basic request validation through the 'Request Validation' feature, which includes the following checks:
+
+* The required request parameters in the URI, query string, and headers of an incoming request are included and non-blank
+* The applicable request payload adheres to the configured JSON schema request model of the method
+
+To enable basic validation in AWS API Gateway, you specify validation rules in a request validator, add the validator to the API's map of request validators, and assign the validator to individual API methods.
+
+More information on API Gateway Request Validation feature can be find [here](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-method-request-validation.html).
+
 These are just a few hints to get you started.
 
 ### Lesson 2: Reverse Engineering The Lambda Function ###

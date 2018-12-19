@@ -7,7 +7,7 @@ Labels:
 - owasp
 - vulnerable
 Name: serverless-goat
-SemanticVersion: 1.0.0
+SemanticVersion: 1.0.1
 SourceCodeUrl: https://github.com/OWASP/Serverless-Goat
 SpdxLicenseId: AGPL-3.0-or-later
 public: true

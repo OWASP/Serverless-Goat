@@ -1,5 +1,7 @@
 ## ServerlessGoat: Lessons ##
 
+*This tutorial assumes the reader has basic knowledge of serverless security concepts. It is recommended to first review the Serverless Security Top 10 Most Common Weaknesses Guide* [Guide](https://github.com/puresec/sas-top-10)
+
 ### Lesson 1: Information Gathering ###
 We begin our journey into serverless security by gathering some reconnaissance on the application. At first sight, malicious users won't know that they are facing a serverless application. So, it is only natural to begin by collecting intelligence.
 

@@ -26,7 +26,7 @@ exports.handler = async (event) => {
 
     let documentUrl = event.queryStringParameters.document_url;
 
-    let txt = child_process.execSync(`curl --silent -L ${documentUrl} | ./bin/catdoc -`).toString();
+    let txt = child_process.execSync(`curl --silent -L ${documentUrl} | /lib64/ld-linux-x86-64.so.2 ./bin/catdoc -`).toString();
 
     // Lambda response max size is 6MB. The workaround is to upload result to S3 and redirect user to the file.
     let key = uuid.v4();

@@ -168,7 +168,7 @@ You should get a full listing of the entire bucket contents. For example:
 ...
 ...
 ```
-You can now try to browse other files in the bucket, belonging to other user's 'convert' operations by concatenating the uuid to the URL (that's the file name.
+You can now try to browse other files in the bucket, belonging to other user's 'convert' operations by concatenating the uuid to the URL (that's the file name).
 
 ### Lesson 6: Finding Known Vulnerabilities In Open Source Packages ###
 When we retrieved the source code of the Lambda function, we saw that it includes a dependency to the `node-uuid` NPM package: `const uuid = require('node-uuid');`

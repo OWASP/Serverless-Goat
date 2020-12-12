@@ -22,7 +22,8 @@ ServerlessGoat is a simple AWS Lambda application, which serves as a MS-Word .do
 ​
 The application is packaged and published for deployment through the [AWS Serverless Application Repository](https://serverlessrepo.aws.amazon.com/applications/arn:aws:serverlessrepo:us-east-1:761130837472:applications~serverless-goat).
 ​
-Steps for deployment:
+### Steps for console deployment: ###
+
 1. Make sure you are logged into your AWS account
 2. Click on the following link: [AWS Serverless Application Repository](https://serverlessrepo.aws.amazon.com/applications/arn:aws:serverlessrepo:us-east-1:761130837472:applications~serverless-goat)
 3. Click 'Deploy'
@@ -31,6 +32,18 @@ Steps for deployment:
 6. Click on 'View CloudFormation Stack'
 7. Under 'Outputs' you will find the URL for the application (WebsiteURL)
 ​
+### Steps for github source / sam deployment: ###
+
+Fill in the values for BUCKET_NAME and STACK_NAME below and then run the commands.
+
+```
+git pull https://github.com/OWASP/Serverless-Goat
+cd Serverless-Goat
+export BUCKET_NAME=
+export STACK_NAME=
+sam deploy --stack-name $STACK_NAME  --s3-bucket $BUCKET_NAME --capabilities CAPABILITY_IAM
+```
+
 ## Cheat-Sheet ##
 
 The full walkthrough of the lessons (under development) can be found in the [LESSONS.md](https://github.com/OWASP/Serverless-Goat/blob/master/LESSONS.md) file

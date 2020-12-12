@@ -3,7 +3,7 @@ Transform: AWS::Serverless-2016-10-31
 
 Globals:
   Function:
-    Runtime: nodejs8.10
+    Runtime: nodejs12.x
     Handler: index.handler
     MemorySize: 3008
     Timeout: 10
